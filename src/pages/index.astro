@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkCard from '../components/WorkCard.astro';
+import { getCollection } from 'astro:content';
+
+const allWorks = await getCollection('works', ({ data }) => !data.draft);
+const featured = allWorks.filter(w => w.data.featured);
+---
+
+<BaseLayout title="Home">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner container">
+      <div class="hero-content">
+        <p class="hero-pre" data-en="Sculptor" data-zh="雕塑家">Sculptor</p>
+        <h1 class="hero-title" data-en="Zhao Kun" data-zh="赵坤">Zhao Kun</h1>
+        <p class="hero-tagline" data-en="Sculpture in Bronze & Stone" data-zh="青铜与石的雕塑艺术">Sculpture in Bronze &amp; Stone</p>
+        <p class="hero-desc" data-en="Capturing the spirit of the natural world through sculpture — strength, grace, and movement rendered in enduring materials." data-zh="以雕塑捕捉自然界的灵魂——将力量、优雅与动感凝固于永恒的材料之中。">
+          Capturing the spirit of the natural world through sculpture — strength, grace, and movement rendered in enduring materials.
+        </p>
+        <div class="hero-actions">
+          <a href="/gallery" class="btn btn-primary" data-en="View Gallery" data-zh="浏览作品">View Gallery</a>
+          <a href="/contact" class="btn btn-outline" data-en="Get in Touch" data-zh="联系我们">Get in Touch</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src={featured[0]?.data.images[0] || '/images/works/eagle-soaring/main.png'} alt="Featured sculpture" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Works -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title" data-en="Featured Works" data-zh="精选作品">Featured Works</h2>
+      <div class="works-grid">
+        {featured.map(work => (
+          <WorkCard
+            slug={work.id}
+            title={work.data.title}
+            year={work.data.year}
+            material={work.data.material}
+            image={work.data.images[0]}
+            animal={work.data.animal}
+            type={work.data.type}
+          />
+        ))}
+      </div>
+      <div class="section-cta">
+        <a href="/gallery" class="btn btn-outline" data-en="View All Works" data-zh="查看全部作品">View All Works</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    min-height: calc(100vh - var(--header-height));
+    display: flex;
+    align-items: center;
+    background-color: var(--color-bg);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+  }
+
+  .hero-pre {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: var(--color-primary-dark);
+    margin-bottom: var(--space-sm);
+    line-height: 1.1;
+  }
+
+  .hero-tagline {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--color-primary-light);
+    font-style: italic;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-desc {
+    color: var(--color-text-muted);
+    max-width: 480px;
+    margin-bottom: var(--space-lg);
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .hero-image {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    position: relative;
+  }
+
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-accent);
+    margin: var(--space-md) auto 0;
+  }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .section-cta {
+    text-align: center;
+    margin-top: var(--space-xl);
+  }
+
+  @media (max-width: 1024px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero-desc {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-actions {
+      justify-content: center;
+    }
+
+    .hero-image {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .works-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .works-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+</style>

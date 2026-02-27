@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Biography" description="Learn about sculptor Zhao Kun — biography, artistic statement, exhibitions, and awards.">
+  <section class="section">
+    <div class="container bio-layout">
+      <!-- Portrait -->
+      <div class="bio-portrait">
+        <div class="portrait-placeholder">
+          <span data-en="Portrait" data-zh="肖像">Portrait</span>
+        </div>
+      </div>
+
+      <!-- Biography -->
+      <div class="bio-content">
+        <h1 class="page-title" data-en="Biography" data-zh="艺术家简介">Biography</h1>
+
+        <div class="bio-text" data-en="Zhao Kun is a sculptor whose work explores the spirit and movement of animals through bronze and stone. Drawing from both Eastern sculptural traditions and contemporary practice, each piece seeks to distill the essence of its subject — the coiled tension of a predator, the quiet grace of a deer, the soaring freedom of a bird in flight.
+
+Working primarily in bronze using the lost-wax casting method, and occasionally in stone, the sculptures range from intimate table-scale pieces to monumental outdoor installations. The studio practice is rooted in direct observation of animals and a deep respect for the materials that give each work its final character." data-zh="赵坤是一位通过青铜和石材探索动物灵魂与动态的雕塑家。融合东方雕塑传统与当代艺术实践，每件作品都力求提炼其主题的精髓——猛兽蓄势待发的张力、鹿的静谧优雅、飞鸟翱翔的自由。
+
+主要采用失蜡铸造法创作青铜作品，偶尔使用石材，作品尺度从精致的桌面摆件到大型户外装置不等。创作实践植根于对动物的直接观察，以及对赋予每件作品最终特质的材料的深切敬意。">
+          <p>Zhao Kun is a sculptor whose work explores the spirit and movement of animals through bronze and stone. Drawing from both Eastern sculptural traditions and contemporary practice, each piece seeks to distill the essence of its subject — the coiled tension of a predator, the quiet grace of a deer, the soaring freedom of a bird in flight.</p>
+          <p>Working primarily in bronze using the lost-wax casting method, and occasionally in stone, the sculptures range from intimate table-scale pieces to monumental outdoor installations. The studio practice is rooted in direct observation of animals and a deep respect for the materials that give each work its final character.</p>
+        </div>
+
+        <!-- Artist Statement -->
+        <div class="statement">
+          <h2 data-en="Artist Statement" data-zh="艺术宣言">Artist Statement</h2>
+          <blockquote data-en="I sculpt animals not to replicate their form, but to find the moment where stillness holds movement — where bronze breathes." data-zh="我雕刻动物，不是为了复制它们的形态，而是为了寻找静止蕴含动态的瞬间——青铜呼吸的时刻。">
+            "I sculpt animals not to replicate their form, but to find the moment where stillness holds movement — where bronze breathes."
+          </blockquote>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline">
+          <h2 data-en="Exhibitions & Awards" data-zh="展览与奖项">Exhibitions &amp; Awards</h2>
+          <div class="timeline-list">
+            <div class="timeline-item">
+              <span class="timeline-year">2024</span>
+              <p class="timeline-desc" data-en="Solo Exhibition — 'Animal Spirits', National Art Museum" data-zh="个展——"动物之魂"，国家美术馆">Solo Exhibition — "Animal Spirits", National Art Museum</p>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-year">2023</span>
+              <p class="timeline-desc" data-en="Group Exhibition — International Sculpture Biennale" data-zh="群展——国际雕塑双年展">Group Exhibition — International Sculpture Biennale</p>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-year">2022</span>
+              <p class="timeline-desc" data-en="Award — Excellence in Sculpture, Contemporary Art Foundation" data-zh="奖项——当代艺术基金会雕塑卓越奖">Award — Excellence in Sculpture, Contemporary Art Foundation</p>
+            </div>
+          </div>
+          <p class="placeholder-note" data-en="(More entries to be added)" data-zh="(更多条目待添加)">(More entries to be added)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .bio-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .portrait-placeholder {
+    aspect-ratio: 3 / 4;
+    background-color: var(--color-bg-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-style: italic;
+    border: 1px dashed var(--color-border);
+  }
+
+  .page-title {
+    margin-bottom: var(--space-lg);
+  }
+
+  .page-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-accent);
+    margin-top: var(--space-md);
+  }
+
+  .bio-text {
+    color: var(--color-text-muted);
+    line-height: 1.9;
+    margin-bottom: var(--space-xl);
+  }
+
+  .bio-text p {
+    margin-bottom: var(--space-md);
+  }
+
+  .statement {
+    margin-bottom: var(--space-xl);
+  }
+
+  .statement h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  blockquote {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--color-primary);
+    border-left: 3px solid var(--color-accent);
+    padding-left: var(--space-lg);
+    line-height: 1.7;
+  }
+
+  .timeline h2 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .timeline-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: baseline;
+  }
+
+  .timeline-year {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    min-width: 60px;
+  }
+
+  .timeline-desc {
+    color: var(--color-text-muted);
+  }
+
+  .placeholder-note {
+    margin-top: var(--space-md);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .bio-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .portrait-placeholder {
+      max-width: 250px;
+    }
+
+    .timeline-item {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+  }
+</style>
+
+<script>
+  // Handle bilingual bio text swap
+  const lang = localStorage.getItem('lang') || 'en';
+  const bioText = document.querySelector('.bio-text');
+  if (bioText && lang === 'zh') {
+    const zh = bioText.getAttribute('data-zh');
+    if (zh) {
+      bioText.innerHTML = zh.split('\n\n').map(p => `<p>${p}</p>`).join('');
+    }
+  }
+</script>

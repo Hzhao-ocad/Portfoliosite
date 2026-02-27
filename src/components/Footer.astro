@@ -1,0 +1,28 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-inner container">
+    <p class="footer-text">
+      &copy; {year} Zhao Kun. <span data-en="All rights reserved." data-zh="版权所有。">All rights reserved.</span>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border-light);
+    padding: var(--space-lg) 0;
+    margin-top: var(--space-xl);
+  }
+
+  .footer-inner {
+    text-align: center;
+  }
+
+  .footer-text {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+</style>

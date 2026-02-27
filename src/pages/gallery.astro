@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkCard from '../components/WorkCard.astro';
+import { getCollection } from 'astro:content';
+
+const allWorks = await getCollection('works', ({ data }) => !data.draft);
+const works = allWorks.sort((a, b) => b.data.year - a.data.year);
+
+// Extract unique filter values
+const animals = [...new Set(works.map(w => w.data.animal))].sort();
+const years = [...new Set(works.map(w => w.data.year))].sort((a, b) => b - a);
+---
+
+<BaseLayout title="Gallery" description="Browse the complete collection of animal sculptures by Zhao Kun.">
+  <section class="section">
+    <div class="container">
+      <h1 class="page-title" data-en="Gallery" data-zh="作品集">Gallery</h1>
+
+      <!-- Filters -->
+      <div class="filters" id="filters">
+        <div class="filter-group">
+          <label class="filter-label" data-en="Animal" data-zh="动物">Animal</label>
+          <select class="filter-select" id="filterAnimal">
+            <option value="all" data-en="All" data-zh="全部">All</option>
+            {animals.map(a => (
+              <option value={a}>{a.charAt(0).toUpperCase() + a.slice(1)}</option>
+            ))}
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" data-en="Year" data-zh="年份">Year</label>
+          <select class="filter-select" id="filterYear">
+            <option value="all" data-en="All" data-zh="全部">All</option>
+            {years.map(y => (
+              <option value={String(y)}>{y}</option>
+            ))}
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" data-en="Type" data-zh="类型">Type</label>
+          <select class="filter-select" id="filterType">
+            <option value="all" data-en="All" data-zh="全部">All</option>
+            <option value="original" data-en="Original" data-zh="原作">Original</option>
+            <option value="copy" data-en="Limited Edition" data-zh="限量版">Limited Edition</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Works Grid -->
+      <div class="works-grid" id="worksGrid">
+        {works.map(work => (
+          <WorkCard
+            slug={work.id}
+            title={work.data.title}
+            year={work.data.year}
+            material={work.data.material}
+            image={work.data.images[0]}
+            animal={work.data.animal}
+            type={work.data.type}
+          />
+        ))}
+      </div>
+
+      <p class="no-results" id="noResults" style="display: none;" data-en="No works match the selected filters." data-zh="没有符合筛选条件的作品。">
+        No works match the selected filters.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-title {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .page-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-accent);
+    margin: var(--space-md) auto 0;
+  }
+
+  .filters {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .filter-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+  }
+
+  .filter-select {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border-radius: 2px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237A6055' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+  }
+
+  .filter-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .no-results {
+    text-align: center;
+    color: var(--color-text-muted);
+    padding: var(--space-xl) 0;
+    font-style: italic;
+  }
+
+  @media (max-width: 1024px) {
+    .works-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .works-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .filters {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
+
+<script>
+  const filterAnimal = document.getElementById('filterAnimal') as HTMLSelectElement;
+  const filterYear = document.getElementById('filterYear') as HTMLSelectElement;
+  const filterType = document.getElementById('filterType') as HTMLSelectElement;
+  const grid = document.getElementById('worksGrid');
+  const noResults = document.getElementById('noResults');
+
+  function applyFilters() {
+    const animal = filterAnimal.value;
+    const year = filterYear.value;
+    const type = filterType.value;
+
+    const cards = grid?.querySelectorAll('.work-card') as NodeListOf<HTMLElement>;
+    let visible = 0;
+
+    cards?.forEach(card => {
+      const matchAnimal = animal === 'all' || card.dataset.animal === animal;
+      const matchYear = year === 'all' || card.dataset.year === year;
+      const matchType = type === 'all' || card.dataset.type === type;
+
+      const show = matchAnimal && matchYear && matchType;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    if (noResults) {
+      noResults.style.display = visible === 0 ? '' : 'none';
+    }
+  }
+
+  filterAnimal?.addEventListener('change', applyFilters);
+  filterYear?.addEventListener('change', applyFilters);
+  filterType?.addEventListener('change', applyFilters);
+</script>

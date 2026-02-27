@@ -1,0 +1,182 @@
+---
+const navItems = [
+  { href: '/', en: 'Home', zh: '首页' },
+  { href: '/gallery', en: 'Gallery', zh: '作品集' },
+  { href: '/bio', en: 'Biography', zh: '简介' },
+  { href: '/contact', en: 'Contact', zh: '联系' },
+];
+---
+
+<header class="header">
+  <div class="header-inner container">
+    <a href="/" class="logo">
+      <span class="logo-text" data-en="Zhao Kun" data-zh="赵坤">Zhao Kun</span>
+    </a>
+
+    <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="hamburger"></span>
+    </button>
+
+    <nav class="nav" role="navigation">
+      {navItems.map(item => (
+        <a href={item.href} class="nav-link" data-en={item.en} data-zh={item.zh}>
+          {item.en}
+        </a>
+      ))}
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+        <span data-en="中文" data-zh="EN">中文</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border-light);
+    height: var(--header-height);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .logo {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    letter-spacing: 0.02em;
+  }
+
+  .logo:hover {
+    color: var(--color-primary);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    padding: var(--space-xs) 0;
+    border-bottom: 2px solid transparent;
+    transition: all var(--transition);
+  }
+
+  .nav-link:hover {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+  }
+
+  .lang-toggle {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: none;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    padding: 0.3rem 0.75rem;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all var(--transition);
+    letter-spacing: 0.04em;
+  }
+
+  .lang-toggle:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-sm);
+  }
+
+  .hamburger,
+  .hamburger::before,
+  .hamburger::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--color-text);
+    transition: all var(--transition);
+  }
+
+  .hamburger {
+    position: relative;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .hamburger::before { top: -7px; }
+  .hamburger::after { top: 7px; }
+
+  @media (max-width: 768px) {
+    .mobile-toggle {
+      display: block;
+    }
+
+    .nav {
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: var(--space-xl);
+      gap: var(--space-lg);
+      background-color: var(--color-bg);
+      transform: translateX(100%);
+      transition: transform var(--transition);
+    }
+
+    .nav.open {
+      transform: translateX(0);
+    }
+
+    .nav-link {
+      font-size: 1.1rem;
+    }
+  }
+</style>
+
+<script>
+  // Language toggle
+  document.getElementById('langToggle')?.addEventListener('click', () => {
+    const current = localStorage.getItem('lang') || 'en';
+    const next = current === 'en' ? 'zh' : 'en';
+    localStorage.setItem('lang', next);
+    location.reload();
+  });
+
+  // Mobile menu toggle
+  const toggle = document.querySelector('.mobile-toggle');
+  const nav = document.querySelector('.nav');
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    nav?.classList.toggle('open');
+  });
+</script>

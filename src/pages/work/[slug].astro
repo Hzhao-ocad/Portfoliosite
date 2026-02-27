@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ImageGallery from '../../components/ImageGallery.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const works = await getCollection('works', ({ data }) => !data.draft);
+  return works.map(work => ({
+    params: { slug: work.id },
+    props: { work },
+  }));
+}
+
+interface Props {
+  work: CollectionEntry<'works'>;
+}
+
+const { work } = Astro.props;
+const { title, description, animal, year, material, dimensions, type, images, price } = work.data;
+
+// Related works: same animal, excluding current
+const allWorks = await getCollection('works', ({ data }) => !data.draft);
+const related = allWorks.filter(w => w.data.animal === animal && w.id !== work.id).slice(0, 3);
+
+const typeLabel = { en: type === 'original' ? 'Original' : 'Limited Edition', zh: type === 'original' ? '原作' : '限量版' };
+---
+
+<BaseLayout title={title.en} description={description.en} ogImage={images[0]}>
+  <article class="work-detail section">
+    <div class="container">
+      <div class="work-layout">
+        <!-- Image Gallery -->
+        <div class="work-images">
+          <ImageGallery images={images} alt={title.en} />
+        </div>
+
+        <!-- Info -->
+        <div class="work-info">
+          <h1 class="work-title" data-en={title.en} data-zh={title.zh}>{title.en}</h1>
+
+          <dl class="work-meta">
+            <div class="meta-row">
+              <dt data-en="Year" data-zh="年份">Year</dt>
+              <dd>{year}</dd>
+            </div>
+            <div class="meta-row">
+              <dt data-en="Material" data-zh="材质">Material</dt>
+              <dd>{material}</dd>
+            </div>
+            <div class="meta-row">
+              <dt data-en="Dimensions" data-zh="尺寸">Dimensions</dt>
+              <dd>{dimensions}</dd>
+            </div>
+            <div class="meta-row">
+              <dt data-en="Type" data-zh="类型">Type</dt>
+              <dd data-en={typeLabel.en} data-zh={typeLabel.zh}>{typeLabel.en}</dd>
+            </div>
+            {price && (
+              <div class="meta-row">
+                <dt data-en="Price" data-zh="价格">Price</dt>
+                <dd>{price}</dd>
+              </div>
+            )}
+          </dl>
+
+          <div class="work-description">
+            <p data-en={description.en} data-zh={description.zh}>{description.en}</p>
+          </div>
+
+          <a href="/contact" class="btn btn-primary" data-en="Inquire About This Work" data-zh="咨询此作品">Inquire About This Work</a>
+        </div>
+      </div>
+
+      <!-- Related Works -->
+      {related.length > 0 && (
+        <section class="related-section">
+          <h2 data-en="Related Works" data-zh="相关作品">Related Works</h2>
+          <div class="related-grid">
+            {related.map(r => (
+              <WorkCard
+                slug={r.id}
+                title={r.data.title}
+                year={r.data.year}
+                material={r.data.material}
+                image={r.data.images[0]}
+                animal={r.data.animal}
+                type={r.data.type}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .work-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .work-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: var(--space-lg);
+  }
+
+  .work-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .meta-row {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .meta-row dt {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    min-width: 100px;
+    padding-top: 2px;
+  }
+
+  .meta-row dd {
+    font-size: 0.95rem;
+    color: var(--color-text);
+  }
+
+  .work-description {
+    margin-bottom: var(--space-lg);
+    line-height: 1.8;
+    color: var(--color-text-muted);
+  }
+
+  .related-section {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .related-section h2 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  @media (max-width: 1024px) {
+    .work-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .related-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .related-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+</style>

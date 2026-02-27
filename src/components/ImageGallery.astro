@@ -1,0 +1,186 @@
+---
+interface Props {
+  images: string[];
+  alt: string;
+}
+
+const { images, alt } = Astro.props;
+---
+
+<div class="gallery">
+  <div class="gallery-main">
+    <img src={images[0]} alt={alt} class="gallery-hero" id="galleryHero" />
+  </div>
+  {images.length > 1 && (
+    <div class="gallery-thumbs">
+      {images.map((img, i) => (
+        <button
+          class:list={['thumb', { active: i === 0 }]}
+          data-src={img}
+          aria-label={`View image ${i + 1}`}
+        >
+          <img src={img} alt={`${alt} - view ${i + 1}`} loading="lazy" />
+        </button>
+      ))}
+    </div>
+  )}
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-hidden="true">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <button class="lightbox-prev" aria-label="Previous">&lsaquo;</button>
+  <img src="" alt="" class="lightbox-img" id="lightboxImg" />
+  <button class="lightbox-next" aria-label="Next">&rsaquo;</button>
+</div>
+
+<style>
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .gallery-main {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: var(--color-bg-alt);
+    cursor: pointer;
+  }
+
+  .gallery-hero {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: var(--color-bg-alt);
+  }
+
+  .gallery-thumbs {
+    display: flex;
+    gap: var(--space-sm);
+    overflow-x: auto;
+  }
+
+  .thumb {
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    border: 2px solid transparent;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    transition: border-color var(--transition);
+  }
+
+  .thumb.active {
+    border-color: var(--color-primary);
+  }
+
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background-color: rgba(44, 24, 16, 0.95);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox.open {
+    display: flex;
+  }
+
+  .lightbox-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+  }
+
+  .lightbox-close,
+  .lightbox-prev,
+  .lightbox-next {
+    position: absolute;
+    background: none;
+    border: none;
+    color: var(--color-text-light);
+    font-size: 2rem;
+    cursor: pointer;
+    padding: var(--space-md);
+    opacity: 0.8;
+    transition: opacity var(--transition);
+  }
+
+  .lightbox-close:hover,
+  .lightbox-prev:hover,
+  .lightbox-next:hover {
+    opacity: 1;
+  }
+
+  .lightbox-close { top: var(--space-md); right: var(--space-md); font-size: 2.5rem; }
+  .lightbox-prev { left: var(--space-md); top: 50%; transform: translateY(-50%); font-size: 3rem; }
+  .lightbox-next { right: var(--space-md); top: 50%; transform: translateY(-50%); font-size: 3rem; }
+</style>
+
+<script define:vars={{ images, alt }}>
+  let currentIndex = 0;
+
+  // Thumbnail switching
+  document.querySelectorAll('.thumb').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      const src = btn.getAttribute('data-src');
+      const hero = document.getElementById('galleryHero');
+      if (hero && src) hero.src = src;
+      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      currentIndex = i;
+    });
+  });
+
+  // Open lightbox
+  document.querySelector('.gallery-main')?.addEventListener('click', () => {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImg');
+    if (lb && img) {
+      img.src = images[currentIndex];
+      img.alt = alt;
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+    }
+  });
+
+  // Close lightbox
+  document.querySelector('.lightbox-close')?.addEventListener('click', () => {
+    const lb = document.getElementById('lightbox');
+    if (lb) {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  // Lightbox nav
+  function showLightbox(index) {
+    currentIndex = (index + images.length) % images.length;
+    const img = document.getElementById('lightboxImg');
+    if (img) img.src = images[currentIndex];
+  }
+
+  document.querySelector('.lightbox-prev')?.addEventListener('click', () => showLightbox(currentIndex - 1));
+  document.querySelector('.lightbox-next')?.addEventListener('click', () => showLightbox(currentIndex + 1));
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (!lb?.classList.contains('open')) return;
+    if (e.key === 'Escape') lb.classList.remove('open');
+    if (e.key === 'ArrowLeft') showLightbox(currentIndex - 1);
+    if (e.key === 'ArrowRight') showLightbox(currentIndex + 1);
+  });
+</script>

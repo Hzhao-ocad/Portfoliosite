@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/d/Codebase/ZhaokunSite/nodejs-temp/nodejs-local/node.exe:*)",
+      "Bash(ls:*)",
+      "Bash(export:*)",
+      "Bash(cp:*)",
+      "Bash(mkdir:*)"
+    ]
+  }
+}
