@@ -7,7 +7,7 @@ const allWorks = await getCollection('works', ({ data }) => !data.draft);
 const works = allWorks.sort((a, b) => b.data.year - a.data.year);
 
 // Extract unique filter values
-const animals = [...new Set(works.map(w => w.data.animal))].sort();
+const tags = [...new Set(works.flatMap(w => w.data.tags))].sort();
 const years = [...new Set(works.map(w => w.data.year))].sort((a, b) => b - a);
 ---
 
@@ -19,11 +19,11 @@ const years = [...new Set(works.map(w => w.data.year))].sort((a, b) => b - a);
       <!-- Filters -->
       <div class="filters" id="filters">
         <div class="filter-group">
-          <label class="filter-label" data-en="Animal" data-zh="动物">Animal</label>
-          <select class="filter-select" id="filterAnimal">
+          <label class="filter-label" data-en="Tag" data-zh="标签">Tag</label>
+          <select class="filter-select" id="filterTag">
             <option value="all" data-en="All" data-zh="全部">All</option>
-            {animals.map(a => (
-              <option value={a}>{a.charAt(0).toUpperCase() + a.slice(1)}</option>
+            {tags.map(t => (
+              <option value={t}>{t.charAt(0).toUpperCase() + t.slice(1).replace(/-/g, ' ')}</option>
             ))}
           </select>
         </div>
@@ -57,7 +57,7 @@ const years = [...new Set(works.map(w => w.data.year))].sort((a, b) => b - a);
             year={work.data.year}
             material={work.data.material}
             image={work.data.images[0]}
-            animal={work.data.animal}
+            tags={work.data.tags}
             type={work.data.type}
           />
         ))}
@@ -160,14 +160,14 @@ const years = [...new Set(works.map(w => w.data.year))].sort((a, b) => b - a);
 </style>
 
 <script>
-  const filterAnimal = document.getElementById('filterAnimal') as HTMLSelectElement;
+  const filterTag = document.getElementById('filterTag') as HTMLSelectElement;
   const filterYear = document.getElementById('filterYear') as HTMLSelectElement;
   const filterType = document.getElementById('filterType') as HTMLSelectElement;
   const grid = document.getElementById('worksGrid');
   const noResults = document.getElementById('noResults');
 
   function applyFilters() {
-    const animal = filterAnimal.value;
+    const tag = filterTag.value;
     const year = filterYear.value;
     const type = filterType.value;
 
@@ -175,11 +175,12 @@ const years = [...new Set(works.map(w => w.data.year))].sort((a, b) => b - a);
     let visible = 0;
 
     cards?.forEach(card => {
-      const matchAnimal = animal === 'all' || card.dataset.animal === animal;
+      const cardTags = card.dataset.tags?.split(',') ?? [];
+      const matchTag = tag === 'all' || cardTags.includes(tag);
       const matchYear = year === 'all' || card.dataset.year === year;
       const matchType = type === 'all' || card.dataset.type === type;
 
-      const show = matchAnimal && matchYear && matchType;
+      const show = matchTag && matchYear && matchType;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
@@ -189,7 +190,7 @@ const years = [...new Set(works.map(w => w.data.year))].sort((a, b) => b - a);
     }
   }
 
-  filterAnimal?.addEventListener('change', applyFilters);
+  filterTag?.addEventListener('change', applyFilters);
   filterYear?.addEventListener('change', applyFilters);
   filterType?.addEventListener('change', applyFilters);
 </script>

@@ -5,14 +5,14 @@ interface Props {
   year: number;
   material: string;
   image: string;
-  animal: string;
+  tags: string[];
   type: 'original' | 'copy';
 }
 
-const { slug, title, year, material, image, animal, type } = Astro.props;
+const { slug, title, year, material, image, tags, type } = Astro.props;
 ---
 
-<a href={`/work/${slug}`} class="work-card" data-animal={animal} data-year={year} data-type={type}>
+<a href={`/work/${slug}`} class="work-card" data-tags={tags.join(',')} data-year={year} data-type={type}>
   <div class="card-image">
     <img src={image} alt={title.en} loading="lazy" />
   </div>

@@ -17,11 +17,11 @@ interface Props {
 }
 
 const { work } = Astro.props;
-const { title, description, animal, year, material, dimensions, type, images, price } = work.data;
+const { title, description, tags, year, material, dimensions, type, images, price } = work.data;
 
-// Related works: same animal, excluding current
+// Related works: share at least one tag, excluding current
 const allWorks = await getCollection('works', ({ data }) => !data.draft);
-const related = allWorks.filter(w => w.data.animal === animal && w.id !== work.id).slice(0, 3);
+const related = allWorks.filter(w => w.id !== work.id && w.data.tags.some(t => tags.includes(t))).slice(0, 3);
 
 const typeLabel = { en: type === 'original' ? 'Original' : 'Limited Edition', zh: type === 'original' ? '原作' : '限量版' };
 ---
@@ -84,7 +84,7 @@ const typeLabel = { en: type === 'original' ? 'Original' : 'Limited Edition', zh
                 year={r.data.year}
                 material={r.data.material}
                 image={r.data.images[0]}
-                animal={r.data.animal}
+                tags={r.data.tags}
                 type={r.data.type}
               />
             ))}

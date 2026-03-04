@@ -12,7 +12,7 @@ const works = defineCollection({
       en: z.string(),
       zh: z.string(),
     }),
-    animal: z.string(),
+    tags: z.array(z.string()).min(1),
     year: z.number(),
     type: z.enum(['original', 'copy']),
     material: z.string(),
