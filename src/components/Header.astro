@@ -23,10 +23,11 @@ const navItems = [
           {item.en}
         </a>
       ))}
-      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
-        <span data-en="中文" data-zh="EN">中文</span>
-      </button>
     </nav>
+
+    <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+      <span data-en="中文" data-zh="EN">中文</span>
+    </button>
   </div>
 </header>
 
@@ -45,6 +46,7 @@ const navItems = [
     align-items: center;
     justify-content: space-between;
     height: 100%;
+    gap: var(--space-md);
   }
 
   .logo {
@@ -93,6 +95,8 @@ const navItems = [
     border-radius: 2px;
     transition: all var(--transition);
     letter-spacing: 0.04em;
+    flex-shrink: 0;
+    z-index: 101;
   }
 
   .lang-toggle:hover {
@@ -135,6 +139,15 @@ const navItems = [
   @media (max-width: 768px) {
     .mobile-toggle {
       display: block;
+      order: 2;
+    }
+
+    .lang-toggle {
+      order: 3;
+    }
+
+    .logo {
+      order: 1;
     }
 
     .nav {
