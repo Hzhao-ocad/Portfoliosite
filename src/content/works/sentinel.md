@@ -3,13 +3,13 @@ title:
   en: "Sentinel"
   zh: "卫士"
 description:
-  en: "Standing in silent watch, this piece embodies unwavering vigilance and the timeless role of the guardian."
-  zh: "沉默守望，这件作品体现了坚定的警觉与永恒的守护者角色。"
+  en: "Ceramic sculpture in the Chinese freehand (xieyi) tradition — clay shaped to capture the natural form and spirit of its subject."
+  zh: "陶瓷雕塑作品，承中国大写意之神，以泥火塑生灵之形与魂。"
 tags:
   - horse
 year: 2018
 type: "original"
-material: "Bronze"
+material: "Ceramic"
 dimensions: "TBD"
 featured: false
 images:

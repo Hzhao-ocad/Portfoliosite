@@ -3,13 +3,13 @@ title:
   en: "White Rabbit"
   zh: "大白兔"
 description:
-  en: "Celebrating the Year of the Rabbit, this sculpture captures the rabbit's gentle alertness and the quiet energy of spring."
-  zh: "以兔年为题，这件作品捕捉了兔子温柔的警觉与春日的宁静能量。"
+  en: "Ceramic sculpture in the Chinese freehand (xieyi) tradition — clay shaped to capture the natural form and spirit of its subject."
+  zh: "陶瓷雕塑作品，承中国大写意之神，以泥火塑生灵之形与魂。"
 tags:
   - rabbit
 year: 2023
 type: "original"
-material: "Bronze"
+material: "Ceramic"
 dimensions: "TBD"
 featured: false
 images:

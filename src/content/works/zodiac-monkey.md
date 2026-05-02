@@ -3,13 +3,13 @@ title:
   en: "Zodiac Monkey"
   zh: "生肖猴"
 description:
-  en: "Celebrating the Year of the Monkey, this work captures the creature's intelligence, agility, and boundless curiosity."
-  zh: "以猴年为题，这件作品捕捉了猴子的聪慧、敏捷与无限好奇心。"
+  en: "Collected by the Jingdezhen Ceramic History Museum (2016)."
+  zh: "景德镇陶瓷历史博物馆收藏（2016年）。"
 tags:
   - monkey
 year: 2016
 type: "original"
-material: "Bronze"
+material: "Ceramic"
 dimensions: "TBD"
 featured: false
 images:

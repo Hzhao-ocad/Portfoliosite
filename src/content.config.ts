@@ -24,4 +24,23 @@ const works = defineCollection({
   }),
 });
 
-export const collections = { works };
+// Series: drop images into public/images/series/<slug>/ — they auto-appear in alphabetical
+// order. The `cover` field is optional; if omitted the first image is used.
+const series = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/series' }),
+  schema: z.object({
+    title: z.object({
+      en: z.string(),
+      zh: z.string(),
+    }),
+    description: z.object({
+      en: z.string(),
+      zh: z.string(),
+    }),
+    order: z.number().default(0),
+    cover: z.string().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { works, series };

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Professional sculpture portfolio website for artist Zhao Kun. Bilingual EN/ZH. Animal sculptures in bronze and stone. The PRD (`PRD.md`) is the source of truth for features and requirements.
+Professional sculpture portfolio website for artist Zhao Kun. Bilingual EN/ZH. Ceramic animal sculptures in the Chinese freehand (xieyi) tradition; the artist is a Jingdezhen-based ceramic master. The PRD (`PRD.md`) is the source of truth for features and requirements.
 
 ## Commands
 

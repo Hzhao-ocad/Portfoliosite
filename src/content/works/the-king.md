@@ -3,13 +3,13 @@ title:
   en: "The King"
   zh: "王者"
 description:
-  en: "Commanding presence, sovereign gaze — the king of beasts sculpted at the height of his power and dignity."
-  zh: "威仪四射、目光如炬——百兽之王在其力量与尊严的巅峰时刻被凝固于此。"
+  en: "Ceramic sculpture in the Chinese freehand (xieyi) tradition — clay shaped to capture the natural form and spirit of its subject."
+  zh: "陶瓷雕塑作品，承中国大写意之神，以泥火塑生灵之形与魂。"
 tags:
   - lion
 year: 2020
 type: "original"
-material: "Bronze"
+material: "Ceramic"
 dimensions: "TBD"
 featured: true
 images:

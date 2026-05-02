@@ -3,13 +3,13 @@ title:
   en: "Urban Spirit: Wolf Howl"
   zh: "都市生灵·狼嗥"
 description:
-  en: "Part of the Urban Spirit series — a wolf's howl echoes through the urban jungle, a primal call against the noise of civilization."
-  zh: "都市生灵系列作品——狼嗥穿越城市丛林，文明喧嚣中的一声原始呼唤。"
+  en: "From the Urban Spirits series — animals as silent witnesses to the modern city, caught between wilderness instinct and urban order."
+  zh: "《都市生灵》系列——动物在都市的钢筋之间，野性与现代秩序之间的灵魂呐喊。"
 tags:
   - wolf
 year: 2023
 type: "original"
-material: "Bronze"
+material: "Ceramic"
 dimensions: "TBD"
 featured: true
 images:

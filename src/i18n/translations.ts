@@ -7,8 +7,8 @@ export const translations = {
     'nav.contact': 'Contact',
 
     // Landing
-    'landing.tagline': 'Sculpture in Bronze & Stone',
-    'landing.intro': 'Capturing the spirit of the natural world through sculpture — strength, grace, and movement rendered in enduring materials.',
+    'landing.tagline': 'Animals in Clay, in the Xieyi Tradition',
+    'landing.intro': 'Combining a wide range of clay bodies and techniques to render natural, innocent, and earthy forms — animal subjects in the freehand spirit of Chinese xieyi painting.',
     'landing.viewGallery': 'View Gallery',
     'landing.getInTouch': 'Get in Touch',
     'landing.featuredWorks': 'Featured Works',
@@ -62,8 +62,8 @@ export const translations = {
     'nav.contact': '联系方式',
 
     // Landing
-    'landing.tagline': '青铜与石的雕塑艺术',
-    'landing.intro': '以雕塑捕捉自然界的灵魂——将力量、优雅与动感凝固于永恒的材料之中。',
+    'landing.tagline': '泥火生灵 · 大写意陶瓷雕塑',
+    'landing.intro': '运用诸多技法综合各种泥料，以动物为题材，展现自然、纯真、质朴的艺术形象与大写意的艺术风格。',
     'landing.viewGallery': '浏览作品',
     'landing.getInTouch': '联系我们',
     'landing.featuredWorks': '精选作品',

@@ -3,13 +3,13 @@ title:
   en: "Brothers"
   zh: "手足"
 description:
-  en: "Siblings entwined — the bond between brothers rendered in the universal language of touch, play, and mutual protection."
-  zh: "手足相连——兄弟间的纽带以触碰、嬉戏与相互守护的普世语言呈现。"
+  en: "Ceramic sculpture in the Chinese freehand (xieyi) tradition — clay shaped to capture the natural form and spirit of its subject."
+  zh: "陶瓷雕塑作品，承中国大写意之神，以泥火塑生灵之形与魂。"
 tags:
   - monkey
 year: 2022
 type: "original"
-material: "Bronze"
+material: "Ceramic"
 dimensions: "TBD"
 featured: false
 images:

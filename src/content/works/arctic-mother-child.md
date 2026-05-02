@@ -3,13 +3,13 @@ title:
   en: "Arctic: Mother and Child"
   zh: "北极·母与子"
 description:
-  en: "A tender depiction of a polar bear mother with her cub, exploring themes of protection, nurturing, and the fragility of arctic life."
-  zh: "一头北极熊母亲与幼仔的温柔刻画，探索守护、哺育以及北极生命脆弱性等主题。"
+  en: "Shown in the 'Polar Spirits' solo exhibition, Shanghai Art Fair (2015)."
+  zh: '曾于"极地生灵"赵坤雕塑艺术展展出，上海艺术博览会（2015年）。'
 tags:
   - bear
 year: 2020
 type: "original"
-material: "Bronze"
+material: "Ceramic"
 dimensions: "TBD"
 featured: true
 images:

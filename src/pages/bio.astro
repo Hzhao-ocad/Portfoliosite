@@ -1,57 +1,160 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const soloExhibitions = [
+  { year: '2021', en: '"Urban Spirits" — Zhao Kun Art Exhibition · Wuhan Tiandi Yifang Art Museum', zh: '"都市生灵"赵坤艺术作品展 · 武汉天地壹方艺术馆' },
+  { year: '2018', en: '"Promise of the Jungle" — Zhao Kun Ceramic Sculpture Exhibition · Jingdezhen Imperial Kiln Jingxiang Art Museum', zh: '"丛林之约"赵坤陶瓷雕塑展 · 景德镇御窑景巷艺术馆' },
+  { year: '2015', en: '"Escape the City — Natural Spirits" Zhao Kun Ceramic Sculpture Exhibition · Shanghai Yuhong Art Gallery', zh: '"逃离都市-自然生灵"赵坤陶瓷雕塑展 · 上海雨虹艺术画廊' },
+  { year: '2015', en: '"Polar Spirits" — Zhao Kun Sculpture Art Exhibition · Shanghai Art Fair', zh: '"极地生灵"赵坤雕塑艺术展 · 上海艺术博览会' },
+  { year: '2015', en: 'Zhao Kun Ceramic Sculpture Art Exhibition · Shangkun Shangci Art Museum, Shanghai', zh: '赵坤陶瓷雕塑艺术展 · 上海上坤上瓷美术馆' },
+  { year: '2013', en: 'Source · Image — Zhao Kun Ceramic Sculpture Solo Exhibition · Nanchang University Art Museum', zh: '源·像——赵坤陶瓷雕塑个展 · 南昌大学美术馆' },
+  { year: '2011', en: '"Clay Unfurled, Spirits Written" — Zhao Kun Ceramic Sculpture Solo Exhibition · Shanghai International Art Fair', zh: '瓷泥漫卷，写意生灵——赵坤陶瓷雕塑艺术个展 · 上海国际艺术博览会' },
+];
+
+const groupExhibitions = [
+  { year: '2021', en: 'Yiyi — Sanbao Famous Porcelain & Jingdezhen Resident Artists Exhibition · Jingdezhen', zh: '衍艺-三宝名瓷及景漂作品展 · 景德镇' },
+  { year: '2019', en: 'Contemporary Ceramic Art Invitational Exhibition · CAA Curatorial Committee, Jingdezhen Ceramic University', zh: '当代陶瓷艺术邀请展 · 中国美术家协会策展委员会，景德镇陶瓷大学' },
+  { year: '2017', en: 'China–Italy Cultural Exhibition · Jingdezhen', zh: '中意文化展 · 景德镇' },
+  { year: '2016', en: 'May Flower National Women Ceramicists Exhibition · Jingdezhen', zh: '五月花全国女陶艺家作品展 · 景德镇' },
+  { year: '2014', en: '"Focus and Resonance" — 2014 Beijing International Sculpture Exhibition · Beijing Aoga Art Museum', zh: '"聚焦与共鸣" 2014 北京国际雕塑作品展 · 北京奥加美术馆' },
+  { year: '2014', en: '"Visual China · Dunhuang on Porcelain" Chinese Ceramic Art Exhibition · Carrousel du Louvre, Paris', zh: '"视觉中国·瓷上敦煌"中国陶瓷艺术展 · 法国巴黎卢浮宫卡鲁塞尔展厅' },
+  { year: '2014', en: 'CHINA: Contemporary Ceramic Alchemy · Nanjing University of the Arts Museum', zh: 'CHINA：当代陶瓷炼金术 · 南京艺术学院美术馆' },
+  { year: '2013', en: 'First Jiangxi Art Biennial · Nanchang', zh: '首届江西艺术双年展 · 南昌' },
+  { year: '2012', en: 'First 791 Art Grand Exhibition · Nanchang', zh: '首届791艺术大展 · 南昌' },
+  { year: '2012', en: 'Asia Galleries Art Fair — China · Japan · Korea Masterworks Exhibition · Shanghai', zh: '亚洲画廊艺术博览会-中日韩艺术精品展 · 上海' },
+  { year: '2008', en: 'Curated "He · Hui — Jingdezhen Sculpture Art Exhibition" and Shanghai Tour · Jingdezhen, Shanghai', zh: '策划"和·汇-景德镇雕塑艺术展"及上海巡展 · 景德镇，上海' },
+  { year: '2008', en: '"Era · Impressions" — 2008 Chinese Contemporary Artists\' Studio Special Invitational · Shenzhen', zh: '"时代·印象"2008中国当代艺术家工作室特邀展 · 深圳' },
+  { year: '2001', en: 'First Jiangxi Artists Association Ceramic Art Exhibition · Jingdezhen', zh: '江西美协首届陶瓷艺术展览 · 景德镇' },
+  { year: '1999', en: '99\' Beijing Welcoming the Millennium Ceramic Invitational · Beijing', zh: '99\'北京迎千禧陶艺邀请展 · 北京' },
+  { year: '1999', en: 'Netherlands Century Ceramic Conference Works Exhibition · Amsterdam', zh: '荷兰世纪陶艺大会作品展 · 阿姆斯特丹' },
+  { year: '1997', en: 'First Chinese Modern Ceramic Art Exhibition · Shanghai', zh: '首届中国现代陶艺展 · 上海' },
+  { year: '1996', en: 'Ministry of Culture "Land of Porcelain — Contemporary Chinese Ceramic World Tour"  · Beijing', zh: '文化部"陶瓷的国度—中国当代陶艺世界巡回展" · 北京' },
+];
+
+const awards = [
+  { year: '2015', en: 'Silver Prize, 10th National Ceramic Art Innovation Competition', zh: '第十届全国陶瓷艺术创新评比银奖' },
+  { year: '2013', en: 'Gold Prize, First Jiangxi Art Biennial', zh: '首届江西艺术双年展金奖' },
+  { year: '2013', en: 'Gold Prize, China Top 10 Ceramic Masterworks Selection', zh: '中国十大陶瓷名品评比金奖' },
+  { year: '2012', en: 'Gold Prize, First 791 Art Grand Exhibition', zh: '首届791艺术大展金奖' },
+  { year: '2010', en: 'Best Craft Award, China Arts & Crafts Hundred Flowers Awards', zh: '中国工艺美术百花奖最佳工艺奖' },
+  { year: '2009', en: 'Special Gold Prize, 5th Shenzhen Cultural Industries Fair', zh: '第五届深圳文博会特别金奖' },
+  { year: '2008', en: 'Gold Prize, China Collectors\' Favourite Arts & Crafts Master Selection', zh: '中国收藏家喜爱的工艺美术大师和精英评选金奖' },
+  { year: '2007', en: 'Gold Prize, 9th China Arts & Crafts Master Masterworks Expo', zh: '第九届中国工艺美术大师精品博览会金奖' },
+  { year: '2001', en: 'First Prize, First Jiangxi Artists Association Ceramic Art Exhibition', zh: '江西美协首届陶瓷艺术展览评比一等奖' },
+];
+
+const collections = [
+  { year: '2016', en: '"Monkey" — collected by Jingdezhen Ceramic History Museum', zh: '《猴》景德镇陶瓷历史博物馆收藏' },
+  { year: '2015', en: '"72 Ceramic Processes — Stone Crushing" — collected by Jingdezhen Ceramic History Museum', zh: '《陶瓷七十二道工序-碎石》景德镇陶瓷历史博物馆收藏' },
+  { year: '2012', en: '"Guardian Deity" — collected by China Arts & Crafts Museum', zh: '《守护神》中国工艺美术馆收藏' },
+  { year: '2010', en: '"Urban Spirits — Deer Calling" — collected by Ministry of Culture\'s China & Foreign Arts & Crafts Museum', zh: '《都市生灵-鹿鸣》文化部中外首工美术馆收藏' },
+  { year: '2008', en: '"The Fisherman" — collected by Jiangxi Provincial Museum', zh: '《渔翁》江西省博物馆收藏' },
+  { year: '1997', en: '"Mother & Child Goat", "Wolf" — collected by the Ministry of Culture', zh: '《母子羊》、《狼》国家文化部收藏' },
+  { year: '1997', en: '"Mother & Child Toad" — collected by Yihukuan (Shanghai) Ceramic Art Museum', zh: '《母子蟾》一壶宽（上海）陶艺馆收藏' },
+];
+
+const publications = [
+  { year: '2012', en: '"Zhao Kun Ceramic Sculpture" — by Zhao Kun, Jiangxi Fine Arts Publishing House', zh: '《赵坤陶瓷雕塑》赵坤著，江西美术出版社' },
+  { year: '2009', en: '"Decorative Sculpture" — Zhao Kun, second editor, Beijing Arts & Crafts Publishing House', zh: '《装饰雕塑》赵坤第二主编，北京工艺美术出版社' },
+  { year: '2003', en: '"Appreciation and Collection of Famous Jingdezhen Porcelain" — co-authored by Zhao Kun and Hu Cunxi, Shanghai Cidian Publishing House', zh: '《景德镇名瓷鉴赏与收藏》赵坤、胡存喜合著，上海大辞典出版社' },
+  { year: '2011', en: '"Urban Spirits: A Cry from the Body" — included in "Chinese Women\'s Culture", edited by Wang Hongqi', zh: '《都市生灵：身体里的呐喊》收录于《中国女性文化》王红旗主编' },
+  { year: '2011.10', en: '"On the Craft Aesthetics of Modern Ceramic Art" — China Ceramics (Art Edition)', zh: '《论现代陶艺的工艺美》中国陶瓷（艺术版）' },
+  { year: '2010.10', en: '"Women as Porcelain" — China Ceramics (Art Edition)', zh: '《女人如瓷》中国陶瓷（艺术版）' },
+  { year: '2010.10', en: '"Zhao Kun Speaks for Herself" — Contemporary Ceramic Art (Vol. 3)', zh: '《赵坤的自话自说》当代陶瓷艺术（总第三辑）' },
+  { year: '2009.2', en: '"On Folk Art and Ceramic Creation" — China Ceramics (Art Edition)', zh: '《浅谈民间艺术与陶艺创作》中国陶瓷（艺术版）' },
+  { year: '2008', en: '"The Spirit of the Era in Modern Ceramic Art" — Second Prize, Jiangxi Ceramic Art Education Essay Competition', zh: '《现代陶艺的时代风貌》江西省教育学会陶艺教育征文竞赛二等奖' },
+];
 ---
 
-<BaseLayout title="Biography" description="Learn about sculptor Zhao Kun — biography, artistic statement, exhibitions, and awards.">
+<BaseLayout title="Biography" description="Biography of ceramic sculptor Zhao Kun — Jiangxi Provincial Ceramic Art Master, Jingdezhen Intangible Cultural Heritage Inheritor.">
   <section class="section">
     <div class="container bio-layout">
       <!-- Portrait -->
       <div class="bio-portrait">
-        <div class="portrait-placeholder">
-          <span data-en="Portrait" data-zh="肖像">Portrait</span>
-        </div>
+        <img src="/images/bio/portrait.png" alt="Zhao Kun" />
       </div>
 
       <!-- Biography -->
       <div class="bio-content">
-        <h1 class="page-title" data-en="Biography" data-zh="艺术家简介">Biography</h1>
+        <h1 class="page-title" data-en="Zhao Kun" data-zh="赵坤">Zhao Kun</h1>
+        <p class="bio-tagline" data-en="Ceramic Sculptor · Jingdezhen" data-zh="陶瓷雕塑家 · 景德镇">Ceramic Sculptor · Jingdezhen</p>
 
-        <div class="bio-text" data-en="Zhao Kun is a sculptor whose work explores the spirit and movement of animals through bronze and stone. Drawing from both Eastern sculptural traditions and contemporary practice, each piece seeks to distill the essence of its subject — the coiled tension of a predator, the quiet grace of a deer, the soaring freedom of a bird in flight.
-
-Working primarily in bronze using the lost-wax casting method, and occasionally in stone, the sculptures range from intimate table-scale pieces to monumental outdoor installations. The studio practice is rooted in direct observation of animals and a deep respect for the materials that give each work its final character." data-zh="赵坤是一位通过青铜和石材探索动物灵魂与动态的雕塑家。融合东方雕塑传统与当代艺术实践，每件作品都力求提炼其主题的精髓——猛兽蓄势待发的张力、鹿的静谧优雅、飞鸟翱翔的自由。
-
-主要采用失蜡铸造法创作青铜作品，偶尔使用石材，作品尺度从精致的桌面摆件到大型户外装置不等。创作实践植根于对动物的直接观察，以及对赋予每件作品最终特质的材料的深切敬意。">
-          <p>Zhao Kun is a sculptor whose work explores the spirit and movement of animals through bronze and stone. Drawing from both Eastern sculptural traditions and contemporary practice, each piece seeks to distill the essence of its subject — the coiled tension of a predator, the quiet grace of a deer, the soaring freedom of a bird in flight.</p>
-          <p>Working primarily in bronze using the lost-wax casting method, and occasionally in stone, the sculptures range from intimate table-scale pieces to monumental outdoor installations. The studio practice is rooted in direct observation of animals and a deep respect for the materials that give each work its final character.</p>
+        <div class="bio-text">
+          <p data-en="Zhao Kun, born in 1968 in Huainan, Anhui Province, graduated from the Jingdezhen Ceramic Institute. She is currently a Jiangxi Provincial Ceramic Art Master, a Jingdezhen Intangible Cultural Heritage Inheritor, and one of Jingdezhen's '3+1+X' designated talents." data-zh="赵坤，1968年生于安徽淮南，毕业于景德镇陶瓷学院。现为江西省陶瓷艺术大师、景德镇市非遗传人、景德镇市3+1+X人才。">
+            Zhao Kun, born in 1968 in Huainan, Anhui Province, graduated from the Jingdezhen Ceramic Institute. She is currently a Jiangxi Provincial Ceramic Art Master, a Jingdezhen Intangible Cultural Heritage Inheritor, and one of Jingdezhen's "3+1+X" designated talents.
+          </p>
+          <p data-en="She is a member of the China Arts & Crafts Society, a member of the Jiangxi Artists Association, an individual director of the Zhongshan Painting Academy of the Revolutionary Committee of the Chinese Kuomintang (RCCK) Central Committee, vice-president of the Jiangxi RCCK Zhongshan Painting Academy, a director of the Jingdezhen Artists Association, a guest professor at Jingdezhen Ceramic University, the Ceramic Art Research Institute of Communication University of China, and Shanghai Institute of Visual Arts, and the founder of Zui Ni Zhai Ceramic Art Studio." data-zh="系中国工艺美术学会会员、江西省美术家协会会员、民革中央中山画院个人理事、江西省民革中山画院副院长、景德镇市美术家协会理事、景德镇陶瓷大学客座教授、中国传媒大学陶瓷艺术研究所客座教授、上海视觉艺术学院客座教授、醉泥斋陶艺工作室主理人等。">
+            She is a member of the China Arts & Crafts Society, a member of the Jiangxi Artists Association, an individual director of the Zhongshan Painting Academy of the Revolutionary Committee of the Chinese Kuomintang (RCCK) Central Committee, vice-president of the Jiangxi RCCK Zhongshan Painting Academy, a director of the Jingdezhen Artists Association, a guest professor at Jingdezhen Ceramic University, the Ceramic Art Research Institute of Communication University of China, and Shanghai Institute of Visual Arts, and the founder of Zui Ni Zhai Ceramic Art Studio.
+          </p>
+          <p data-en="Her works mostly take animals as their subject, combining a wide range of clay bodies and techniques to render natural, innocent, and earthy forms in the freehand spirit of Chinese xieyi painting. She has received dozens of awards, held numerous solo exhibitions, and her works are held by museums, galleries, and private collectors." data-zh="赵坤的作品多以动物为题材，运用诸多技法综合各种泥料，展现出自然、纯真、质朴等多样化的艺术形象和大写意的艺术风格，作品获奖数十项，受邀多次举办个展，作品被许多博物馆、美术馆和私人收藏。">
+            Her works mostly take animals as their subject, combining a wide range of clay bodies and techniques to render natural, innocent, and earthy forms in the freehand spirit of Chinese xieyi painting. She has received dozens of awards, held numerous solo exhibitions, and her works are held by museums, galleries, and private collectors.
+          </p>
         </div>
 
-        <!-- Artist Statement -->
-        <div class="statement">
-          <h2 data-en="Artist Statement" data-zh="艺术宣言">Artist Statement</h2>
-          <blockquote data-en="I sculpt animals not to replicate their form, but to find the moment where stillness holds movement — where bronze breathes." data-zh="我雕刻动物，不是为了复制它们的形态，而是为了寻找静止蕴含动态的瞬间——青铜呼吸的时刻。">
-            "I sculpt animals not to replicate their form, but to find the moment where stillness holds movement — where bronze breathes."
-          </blockquote>
-        </div>
-
-        <!-- Timeline -->
-        <div class="timeline">
-          <h2 data-en="Exhibitions & Awards" data-zh="展览与奖项">Exhibitions &amp; Awards</h2>
+        <!-- Solo Exhibitions -->
+        <section class="cv-section">
+          <h2 data-en="Solo Exhibitions" data-zh="个展">Solo Exhibitions</h2>
           <div class="timeline-list">
-            <div class="timeline-item">
-              <span class="timeline-year">2024</span>
-              <p class="timeline-desc" data-en="Solo Exhibition — 'Animal Spirits', National Art Museum" data-zh="个展——"动物之魂"，国家美术馆">Solo Exhibition — "Animal Spirits", National Art Museum</p>
-            </div>
-            <div class="timeline-item">
-              <span class="timeline-year">2023</span>
-              <p class="timeline-desc" data-en="Group Exhibition — International Sculpture Biennale" data-zh="群展——国际雕塑双年展">Group Exhibition — International Sculpture Biennale</p>
-            </div>
-            <div class="timeline-item">
-              <span class="timeline-year">2022</span>
-              <p class="timeline-desc" data-en="Award — Excellence in Sculpture, Contemporary Art Foundation" data-zh="奖项——当代艺术基金会雕塑卓越奖">Award — Excellence in Sculpture, Contemporary Art Foundation</p>
-            </div>
+            {soloExhibitions.map(item => (
+              <div class="timeline-item">
+                <span class="timeline-year">{item.year}</span>
+                <p class="timeline-desc" data-en={item.en} data-zh={item.zh}>{item.en}</p>
+              </div>
+            ))}
           </div>
-          <p class="placeholder-note" data-en="(More entries to be added)" data-zh="(更多条目待添加)">(More entries to be added)</p>
-        </div>
+        </section>
+
+        <!-- Group Exhibitions -->
+        <section class="cv-section">
+          <h2 data-en="Selected Group Exhibitions" data-zh="主要群展">Selected Group Exhibitions</h2>
+          <div class="timeline-list">
+            {groupExhibitions.map(item => (
+              <div class="timeline-item">
+                <span class="timeline-year">{item.year}</span>
+                <p class="timeline-desc" data-en={item.en} data-zh={item.zh}>{item.en}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Awards -->
+        <section class="cv-section">
+          <h2 data-en="Awards" data-zh="获奖">Awards</h2>
+          <div class="timeline-list">
+            {awards.map(item => (
+              <div class="timeline-item">
+                <span class="timeline-year">{item.year}</span>
+                <p class="timeline-desc" data-en={item.en} data-zh={item.zh}>{item.en}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Collections -->
+        <section class="cv-section">
+          <h2 data-en="Public & Institutional Collections" data-zh="收藏">Public &amp; Institutional Collections</h2>
+          <div class="timeline-list">
+            {collections.map(item => (
+              <div class="timeline-item">
+                <span class="timeline-year">{item.year}</span>
+                <p class="timeline-desc" data-en={item.en} data-zh={item.zh}>{item.en}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Publications -->
+        <section class="cv-section">
+          <h2 data-en="Publications & Articles" data-zh="出版与发表">Publications &amp; Articles</h2>
+          <div class="timeline-list">
+            {publications.map(item => (
+              <div class="timeline-item">
+                <span class="timeline-year">{item.year}</span>
+                <p class="timeline-desc" data-en={item.en} data-zh={item.zh}>{item.en}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   </section>
@@ -60,24 +163,32 @@ Working primarily in bronze using the lost-wax casting method, and occasionally 
 <style>
   .bio-layout {
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 320px 1fr;
     gap: var(--space-xl);
     align-items: start;
   }
 
-  .portrait-placeholder {
-    aspect-ratio: 3 / 4;
+  .bio-portrait {
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-md));
+  }
+
+  .bio-portrait img {
+    width: 100%;
+    height: auto;
+    display: block;
     background-color: var(--color-bg-alt);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-    font-style: italic;
-    border: 1px dashed var(--color-border);
   }
 
   .page-title {
+    margin-bottom: var(--space-xs);
+  }
+
+  .bio-tagline {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
     margin-bottom: var(--space-lg);
   }
 
@@ -100,57 +211,39 @@ Working primarily in bronze using the lost-wax casting method, and occasionally 
     margin-bottom: var(--space-md);
   }
 
-  .statement {
+  .cv-section {
     margin-bottom: var(--space-xl);
   }
 
-  .statement h2 {
-    margin-bottom: var(--space-md);
-  }
-
-  blockquote {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    font-style: italic;
-    color: var(--color-primary);
-    border-left: 3px solid var(--color-accent);
-    padding-left: var(--space-lg);
-    line-height: 1.7;
-  }
-
-  .timeline h2 {
+  .cv-section h2 {
     margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-border-light);
   }
 
   .timeline-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
 
   .timeline-item {
-    display: flex;
-    gap: var(--space-lg);
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--space-md);
     align-items: baseline;
   }
 
   .timeline-year {
     font-family: var(--font-heading);
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--color-primary);
-    min-width: 60px;
   }
 
   .timeline-desc {
     color: var(--color-text-muted);
-  }
-
-  .placeholder-note {
-    margin-top: var(--space-md);
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
-    font-style: italic;
+    line-height: 1.7;
   }
 
   @media (max-width: 768px) {
@@ -158,25 +251,15 @@ Working primarily in bronze using the lost-wax casting method, and occasionally 
       grid-template-columns: 1fr;
     }
 
-    .portrait-placeholder {
-      max-width: 250px;
+    .bio-portrait {
+      position: static;
+      max-width: 280px;
+      margin: 0 auto;
     }
 
     .timeline-item {
-      flex-direction: column;
+      grid-template-columns: 1fr;
       gap: var(--space-xs);
     }
   }
 </style>
-
-<script>
-  // Handle bilingual bio text swap
-  const lang = localStorage.getItem('lang') || 'en';
-  const bioText = document.querySelector('.bio-text');
-  if (bioText && lang === 'zh') {
-    const zh = bioText.getAttribute('data-zh');
-    if (zh) {
-      bioText.innerHTML = zh.split('\n\n').map(p => `<p>${p}</p>`).join('');
-    }
-  }
-</script>

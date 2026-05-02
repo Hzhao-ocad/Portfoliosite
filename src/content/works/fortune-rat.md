@@ -3,13 +3,13 @@ title:
   en: "Fortune Rat"
   zh: "福鼠"
 description:
-  en: "The rat, first of the twelve zodiac animals, depicted with clever eyes and quick energy — a symbol of wealth and resourcefulness."
-  zh: "十二生肖之首，以机灵的眼神和灵活的姿态呈现——智慧与财富的象征。"
+  en: "Ceramic sculpture in the Chinese freehand (xieyi) tradition — clay shaped to capture the natural form and spirit of its subject."
+  zh: "陶瓷雕塑作品，承中国大写意之神，以泥火塑生灵之形与魂。"
 tags:
   - rat
 year: 2020
 type: "original"
-material: "Bronze"
+material: "Ceramic"
 dimensions: "TBD"
 featured: false
 images:

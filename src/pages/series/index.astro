@@ -1,0 +1,116 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('series', ({ data }) => !data.draft);
+const series = all
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(s => {
+    const dir = path.resolve('./public/images/series', s.id);
+    const files = fs.existsSync(dir)
+      ? fs.readdirSync(dir).filter(f => /\.(png|jpe?g|webp|gif|avif)$/i.test(f)).sort()
+      : [];
+    const cover = s.data.cover || (files.length ? `/images/series/${s.id}/${files[0]}` : '');
+    return { ...s, cover, count: files.length };
+  });
+---
+
+<BaseLayout title="Series" description="Sculpture series by Zhao Kun — Wise One, Urban Spirits, Pure Land, Clay Slab, Reproducible Works, Public Art.">
+  <section class="section">
+    <div class="container">
+      <h1 class="page-title" data-en="Series" data-zh="系列作品">Series</h1>
+      <p class="lede" data-en="Bodies of work organised by theme and material — each series traces a sustained line of inquiry across years of studio practice." data-zh="按主题与材质分组的系列作品——每一系列都是工作室长年持续探索的一条线索。">
+        Bodies of work organised by theme and material — each series traces a sustained line of inquiry across years of studio practice.
+      </p>
+
+      <div class="series-grid">
+        {series.map(s => (
+          <a href={`/series/${s.id}`} class="series-card">
+            <div class="series-cover">
+              {s.cover && <img src={s.cover} alt="" loading="lazy" />}
+            </div>
+            <div class="series-meta">
+              <h2 class="series-title" data-en={s.data.title.en} data-zh={s.data.title.zh}>{s.data.title.en}</h2>
+              <p class="series-desc" data-en={s.data.description.en} data-zh={s.data.description.zh}>{s.data.description.en}</p>
+              <span class="series-count" data-en={`${s.count} works`} data-zh={`${s.count} 件作品`}>{s.count} works</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-title {
+    text-align: center;
+    margin-bottom: var(--space-md);
+  }
+  .page-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-accent);
+    margin: var(--space-md) auto 0;
+  }
+  .lede {
+    text-align: center;
+    color: var(--color-text-muted);
+    max-width: 640px;
+    margin: 0 auto var(--space-xl);
+    line-height: 1.8;
+  }
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+  .series-card {
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    transition: transform var(--transition);
+  }
+  .series-card:hover {
+    transform: translateY(-3px);
+  }
+  .series-cover {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: var(--color-bg-alt);
+    margin-bottom: var(--space-md);
+  }
+  .series-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .series-card:hover .series-cover img {
+    transform: scale(1.04);
+  }
+  .series-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+    color: var(--color-primary-dark);
+  }
+  .series-desc {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-sm);
+  }
+  .series-count {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+  }
+  @media (max-width: 768px) {
+    .series-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

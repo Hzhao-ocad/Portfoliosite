@@ -3,13 +3,13 @@ title:
   en: "Fighting Bull"
   zh: "斗牛"
 description:
-  en: "Raw power coiled and unleashed — the fighting bull captured at the peak of tension, a study in muscle, motion, and elemental force."
-  zh: "蓄势待发的原始力量——斗牛定格于张力顶点，对肌肉、动态与本能力量的研究。"
+  en: "Ceramic sculpture in the Chinese freehand (xieyi) tradition — clay shaped to capture the natural form and spirit of its subject."
+  zh: "陶瓷雕塑作品，承中国大写意之神，以泥火塑生灵之形与魂。"
 tags:
   - bull
 year: 2021
 type: "original"
-material: "Bronze"
+material: "Ceramic"
 dimensions: "TBD"
 featured: true
 images:

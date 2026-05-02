@@ -3,13 +3,13 @@ title:
   en: "Urban Forest"
   zh: "都市森林"
 description:
-  en: "Where concrete meets nature — wildlife navigating the urban forest, a meditation on coexistence in the modern age."
-  zh: "混凝土与自然相遇之处——野生动物穿越都市森林，对现代共存的沉思。"
+  en: "From the Urban Spirits series — wilderness instinct meets the geometry of contemporary life."
+  zh: "《都市生灵》系列——丛林的野性遇上现代都市的几何与节奏。"
 tags:
   - deer
 year: 2024
 type: "original"
-material: "Bronze"
+material: "Ceramic"
 dimensions: "TBD"
 featured: false
 images:

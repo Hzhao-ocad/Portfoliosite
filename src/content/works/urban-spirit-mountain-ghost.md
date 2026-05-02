@@ -3,13 +3,13 @@ title:
   en: "Urban Spirit: Mountain Ghost"
   zh: "都市生灵·山鬼"
 description:
-  en: "Part of the Urban Spirit series — ancient mythological figures reimagined within the concrete landscape of the modern city."
-  zh: "都市生灵系列作品——古代神话形象在现代都市的钢筋混凝土中重获新生。"
+  en: "From the Urban Spirits series — mythological figures reimagined as silent witnesses to the modern city."
+  zh: "《都市生灵》系列——古代神话形象在都市钢铁之间，成为沉默的见证者。"
 tags:
   - mythical
 year: 2023
 type: "original"
-material: "Bronze"
+material: "Ceramic"
 dimensions: "TBD"
 featured: false
 images:
